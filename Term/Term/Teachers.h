@@ -17,4 +17,8 @@ int TeachersSubMenu();
 Teacher* AddTeacher(Teacher arr[], int size);
 Teacher* DeleteTeacher(Teacher arr[], int* size);
 void SortTeachers(Teacher arr[], int size);
-void(Teacher arr[], size_t size);
+void EditTeacher(Teacher arr[], size_t size);
+
+int FoundTeacher(Teacher arr[], int size);
+
+int ShowEditMenu();

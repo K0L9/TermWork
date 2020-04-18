@@ -77,7 +77,7 @@ int main()
 	Teacher oliinuk = { "Olena", "Oliinuk", 49, "olenkaoliinyk@gmail.com" };
 	Teacher rychka = { "Halyna", "Rychka", 49, "rychkahalka@gmail.com" };
 
-	Teacher* teachersArr = new Teacher[size]{ stelmah, stepanenko, oliinuk, rychka, verhova, veritianikova, kovalchyk, avramenko };
+	Teacher* teachersArr = new Teacher[size]{ stelmah, stepanenko, oliinuk, rychka, veritianikova, verhova, kovalchyk, avramenko };
 
 	do
 	{
@@ -106,10 +106,13 @@ int main()
 			case 4:
 				SortTeachers(teachersArr, size);
 				break;
-			default: 
+			case 5:
+				EditTeacher(teachersArr, size);
+				break;
+			default:
 				cout << "You input invalid value, try again\n";
-			//	system("pause");
-			//	system("cls");
+				//	system("pause");
+				//	system("cls");
 			}
 			break;
 
@@ -132,7 +135,7 @@ int main()
 			cout << "Good bye\n";
 			return 0;
 			break;
-		default: 
+		default:
 			cout << "You input not right value, try again\n";
 			//system("pause");
 			//system("cls");
