@@ -85,7 +85,8 @@ Teacher* DeleteTeacher(Teacher arr[], int* size)
 			else if (i > IndexToDelete)
 				newArr[i - 1] = arr[i];
 		}
-
+		delete[] arr;
+		arr = nullptr;
 		return newArr;
 	}
 	else
