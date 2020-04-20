@@ -69,7 +69,7 @@ int main()
 	int sizeTeacher = 8;
 
 	Teacher stelmah = { "Lyudmyla", "Stelmah", 40, "stelmahlyda@gmail.com" };
-	Teacher veritianikova = { "Lydmyla", "Veritianikova", 35, "veritianikovalyda@gmail.com" };
+	Teacher shevchenko = { "Lydmyla", "Shevchenko", 35, "shevchenkolyda@gmail.com" };
 	Teacher stepanenko = { "Nadiya", "Stepanenko", 56, "stepanenkonadiya@gmail.com" };
 	Teacher avramenko = { "Oleksandr", "Avramenko", 31, "avramenkosasha@gmail.com" };
 	Teacher verhova = { "Inna", "Verhova", 49, "verhovainna@gmail.com" };
@@ -77,7 +77,7 @@ int main()
 	Teacher oliinuk = { "Olena", "Oliinuk", 49, "olenkaoliinyk@gmail.com" };
 	Teacher rychka = { "Halyna", "Rychka", 49, "rychkahalka@gmail.com" };
 
-	Teacher* teachersArr = new Teacher[sizeTeacher]{ stelmah, stepanenko, oliinuk, rychka, veritianikova, verhova, kovalchyk, avramenko };
+	Teacher* teachersArr = new Teacher[sizeTeacher]{ stelmah, stepanenko, oliinuk, rychka, shevchenko, verhova, kovalchyk, avramenko };
 
 
 
@@ -178,6 +178,9 @@ int main()
 				break;
 			case 5: 
 				SortStudents(studentsArr, sizeStudent);
+				break;
+			case 6:
+				EditStudent(studentsArr, sizeStudent);
 				break;
 			}
 			break;

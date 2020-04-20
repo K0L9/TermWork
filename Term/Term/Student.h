@@ -8,17 +8,20 @@ struct Student
 	char mail[35] = " ";
 	char perentsPhone[90] = " ";
 	char studentPhone[15] = " ";
-	//char* subject;
-
 };
 
 
 int StudentsSubMenu();
-void ShowAllStudents(Student arr[], int size);
-void ShowStudentsForm(Student arr[], int size);
+void ShowAllStudents(const Student const arr[], int size);
+void ShowStudentsForm(const Student const arr[], int size);
 Student* AddStudent(Student arr[], int size);
 Student* DeleteStudent(Student arr[], int* size);
-int FoundStudent(Student arr[], int size); 
+int FoundStudent(const Student const arr[], int size);
 void SortStudents(Student arr[], int size);
-char* ConvertForm(char form[5]);
-char* ReturnForm();
+void ConvertForm(char form[5]);
+void GetForm(char form[5]);
+int ReturnLastFormIndex(const Student const arr[], int size, const char const form[5]);
+int ReturnFirstFormIndex(const Student const arr[], int size, const char const form[5]);
+void EditStudent(Student arr[], int size);
+int ShowEditStudentMenu();
+void GetNumber(char number[15]);

@@ -5,20 +5,14 @@ using namespace std;
 
 void ShowAllTeachers(Teacher teacher[], size_t size)
 {
-	//cout << "\tName\t Surnmame\t Age\t mail\n";
+	cout << "¹   Name  Surnmame\tAge\t\t Mail\n";
+	cout << "------------------------------------------------\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout << i + 1 << ". " << teacher[i].surname;
-		cout << "\t";
-		cout << teacher[i].name;
-		cout << "\t"; // << teacher[i].age << "\t" << teacher[i].mail << endl;
-		cout << teacher[i].age;
-		cout << "\t";
-		cout << teacher[i].mail << endl;
-
-		//cout << teacher[i].surname << "\t";
-		//cout << teacher[i].age << "\t";
-		//cout << teacher[i].mail << endl;
+		cout << i + 1 << ". " << teacher[i].surname << "  ";
+		cout << teacher[i].name << "\t";
+		cout << teacher[i].age << "\t";
+		cout << teacher[i].mail << "|\n";
 	}
 }
 
@@ -178,9 +172,9 @@ void SortTeachers(Teacher arr[], int size)
 			swap(arr[i], arr[i + 1]);
 	}*/
 
-	for (size_t i = 0; i < size - 1; i++)
+	for (int i = 0; i < size - 1; i++)
 	{
-		for (size_t j = i + 1; j < size; j++)
+		for (int j = i + 1; j < size; j++)
 		{
 
 			if (strcmp(arr[i].surname, arr[j].surname) > 0)
@@ -190,10 +184,19 @@ void SortTeachers(Teacher arr[], int size)
 
 		}
 	}
+
+	for (int i = 0; i < size; i++)
+	{
+		if (strcmp(arr[i].surname, arr[i + 1].surname) == 0)
+		{
+			if (strcmp(arr[i].name, arr[i + 1].name) > 0)
+			{
+				swap(arr[i], arr[i + 1]);
+			}
+
+		}
+	}
 }
-
-
-
 
 void EditTeacher(Teacher arr[], size_t size)
 {
