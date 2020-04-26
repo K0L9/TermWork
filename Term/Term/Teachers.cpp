@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Teachers.h"
+#include "Subject.h"
 
 using namespace std;
 
@@ -12,11 +13,12 @@ void ShowAllTeachers(Teacher teacher[], size_t size)
 		cout << i + 1 << ". " << teacher[i].surname << "  ";
 		cout << teacher[i].name << "\t";
 		cout << teacher[i].age << "\t";
-		cout << teacher[i].mail << "|\n";
+		cout << teacher[i].mail << "\t";
+		cout << teacher[i].subject->name << "|\n";
 	}
 }
 
-Teacher* AddTeacher(Teacher arr[], int size)
+Teacher* AddTeacher(Teacher arr[], int size, int sizeSubject, Subject arrSubject[])
 {
 	Teacher teacher;
 
@@ -44,6 +46,33 @@ Teacher* AddTeacher(Teacher arr[], int size)
 	cout << "Input teacher mail: \n";
 	cin.ignore();
 	cin.getline(teacher.mail, 40);
+
+	bool isFoundSubject = false;
+	do {
+		cout << "Input teacher's subject: \n";
+		char subject[20] = " ";
+		cin.ignore();
+		cin.getline(subject, 20);
+		int subjectIndex;
+		for (int i = 0; i < sizeSubject; i++)
+		{
+			if (strstr(arrSubject[i].name, subject) != 0)
+			{
+				isFoundSubject = true;
+				subjectIndex = i;
+				break;
+			}
+		}
+
+		if (isFoundSubject == true)
+		{
+			teacher.subject = &arrSubject[subjectIndex];
+		}
+		else
+			cout << "Error, input right subject\n";
+	} while (isFoundSubject == false);
+
+	//cin.getline(teacher.subject->name, 25);
 
 	//cout << "Input subject, that this teacher will be hold: \n";
 	//cin >> teacher.subject;

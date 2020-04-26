@@ -66,32 +66,55 @@ int main()
 	//	return 0;
 	//}
 
+	Subject history, pe, math, english, ukrainian, art;
+
+
 	int sizeTeacher = 8;
 
-	Teacher stelmah = { "Lyudmyla", "Stelmah", 40, "stelmahlyda@gmail.com" };
-	Teacher shevchenko = { "Lydmyla", "Shevchenko", 35, "shevchenkolyda@gmail.com" };
-	Teacher stepanenko = { "Nadiya", "Stepanenko", 56, "stepanenkonadiya@gmail.com" };
-	Teacher avramenko = { "Oleksandr", "Avramenko", 31, "avramenkosasha@gmail.com" };
-	Teacher verhova = { "Inna", "Verhova", 49, "verhovainna@gmail.com" };
-	Teacher kovalchyk = { "Myroslava", "Kovalchyk", 49, "myrosyakovalchyk@gmail.com" };
-	Teacher oliinuk = { "Olena", "Oliinuk", 49, "olenkaoliinyk@gmail.com" };
-	Teacher rychka = { "Halyna", "Rychka", 49, "rychkahalka@gmail.com" };
+	Teacher stelmah = { "Lyudmyla", "Stelmah", 40, "stelmahlyda@gmail.com", &history };
+	Teacher shevchenko = { "Lydmyla", "Shevchenko", 35, "shevchenkolyda@gmail.com" , &history };
+	Teacher stepanenko = { "Nadiya", "Stepanenko", 56, "stepanenkonadiya@gmail.com" , &history };
+	Teacher avramenko = { "Oleksandr", "Avramenko", 31, "avramenkosasha@gmail.com"  , &history };
+	Teacher verhova = { "Inna", "Verhova", 49, "verhovainna@gmail.com"  , &history };
+	Teacher kovalchyk = { "Myroslava", "Kovalchyk", 49, "myrosyakovalchyk@gmail.com"  , &history };
+	Teacher oliinuk = { "Olena", "Oliinuk", 49, "olenkaoliinyk@gmail.com"  , &history };
+	Teacher rychka = { "Halyna", "Rychka", 49, "rychkahalka@gmail.com"  , &history };
 
 	Teacher* teachersArr = new Teacher[sizeTeacher]{ stelmah, stepanenko, oliinuk, rychka, shevchenko, verhova, kovalchyk, avramenko };
+
+
+	//Subjects
+
+	int sizeSubject = 6;
+
+	history = { "History", "5-A 6-C", (stelmah.surname, verhova.surname) };
+	pe = { "Pe", "5-A 5-B", shevchenko.surname };
+	math = { "Math", "5-A 11-A", stepanenko.surname };
+	english = { "English", "5-A 9-C", avramenko.surname };
+	ukrainian = { "Ukrainian", "5-A 1-B", verhova.surname };
+	art = { "Art", "5-A 7-A", oliinuk.surname };
+
+	Subject* subjectArr = new Subject[sizeSubject]{ history, pe, math, english, ukrainian, art };
 
 
 
 	//Subjects
 
-	/*//int size = 5;
-	//char* subjects = new char[size];
-	//subjects[1] = " asd";
+	/*int size = 5;
+	char* subjects = new char[size];
+	subjects[1] = '4';*/
 
-	int size = 5;
-	char** arr = new char* [size];
-	for (int i = 0; i < size; i++)
-		arr[i] = new char[25];
-	*/
+	//int size = 5;
+	//char** arr = new char* [size];
+	//for (int i = 0; i < size; i++)
+	//	arr[i] = new char[25]; 
+
+	//cout << arr[1];
+	/*char* m[12] ;
+	*m ("ad";
+	arr[1] = m;
+	cout << arr[1];*/
+
 
 
 	//Students
@@ -133,7 +156,7 @@ int main()
 				break;
 			case 2:
 				sizeTeacher++;
-				teachersArr = AddTeacher(teachersArr, sizeTeacher);
+				teachersArr = AddTeacher(teachersArr, sizeTeacher, sizeSubject, subjectArr);
 				//teachersArr = AddTeacher(teachersArr, sizeTeacher);
 				break;
 			case 3:
@@ -156,27 +179,31 @@ int main()
 			switch (SubjectsSubMenu())
 			{
 			case 1:
-
+				ShowAllSubject(subjectArr, sizeSubject);
+				break;
+			case 2: 
+				sizeSubject++;
+				subjectArr = AddSubject(subjectArr, sizeSubject, sizeTeacher, teachersArr);
 				break;
 			}
-
+			break;
 		case 3:
 			switch (StudentsSubMenu())
 			{
 			case 1:
 				ShowAllStudents(studentsArr, sizeStudent);
 				break;
-			case 2: 
+			case 2:
 				ShowStudentsForm(studentsArr, sizeStudent);
 				break;
-			case 3: 
+			case 3:
 				sizeStudent++;
 				studentsArr = AddStudent(studentsArr, sizeStudent);
 				break;
-			case 4: 
+			case 4:
 				studentsArr = DeleteStudent(studentsArr, &sizeStudent);
 				break;
-			case 5: 
+			case 5:
 				SortStudents(studentsArr, sizeStudent);
 				break;
 			case 6:
