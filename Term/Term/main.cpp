@@ -1,10 +1,3 @@
-//#include <iostream>
-//#include <string>
-//#include "Teachers.h"
-//#include "Subject.h"
-//#include "Student.h"
-
-
 #include <iostream>
 #include "Teachers.h"
 #include "Subject.h"
@@ -51,7 +44,6 @@ int ShowMenu()
 int main()
 {
 	setlocale(LC_CTYPE, "rus");
-
 	cout << "WELCOME DIRECTOR\n";
 	//system("pause");
 	//system("cls");
@@ -66,77 +58,88 @@ int main()
 	//	return 0;
 	//}
 
-	Subject history, pe, math, english, ukrainian, art;
+	//subjects
+	//Subject history, pe, math, english, ukrainian, art;
 
 
+	int sizeSubject = 6;
+
+	//Subjects
+	char history[25] = "History";
+	char pe[25] = "Pe";
+	char math[25] = "Math";
+	char english[25] = "English";
+	char ukrainian[25] = "Ukrainian";
+	char art[25] = "Art";
+
+	char** subjectArr = new char* [sizeSubject] { history, pe, math, english, ukrainian, art };
+
+
+	//Teachers
 	int sizeTeacher = 8;
 
-	Teacher stelmah = { "Lyudmyla", "Stelmah", 40, "stelmahlyda@gmail.com", &history };
-	Teacher shevchenko = { "Lydmyla", "Shevchenko", 35, "shevchenkolyda@gmail.com" , &history };
-	Teacher stepanenko = { "Nadiya", "Stepanenko", 56, "stepanenkonadiya@gmail.com" , &history };
-	Teacher avramenko = { "Oleksandr", "Avramenko", 31, "avramenkosasha@gmail.com"  , &history };
-	Teacher verhova = { "Inna", "Verhova", 49, "verhovainna@gmail.com"  , &history };
-	Teacher kovalchyk = { "Myroslava", "Kovalchyk", 49, "myrosyakovalchyk@gmail.com"  , &history };
-	Teacher oliinuk = { "Olena", "Oliinuk", 49, "olenkaoliinyk@gmail.com"  , &history };
-	Teacher rychka = { "Halyna", "Rychka", 49, "rychkahalka@gmail.com"  , &history };
+	Teacher stelmah = { "Lyudmyla", "Stelmah", 40, "stelmahlyda@gmail.com", history };
+	Teacher shevchenko = { "Lydmyla", "Shevchenko", 35, "shevchenkolyda@gmail.com", ukrainian };
+	Teacher stepanenko = { "Nadiya", "Stepanenko", 56, "stepanenkonadiya@gmail.com", art };
+	Teacher avramenko = { "Oleksandr", "Avramenko", 31, "avramenkosasha@gmail.com", ukrainian };
+	Teacher verhova = { "Inna", "Verhova", 49, "verhovainna@gmail.com", history };
+	Teacher kovalchyk = { "Myroslava", "Kovalchyk", 49, "myrosyakovalchyk@gmail.com", pe };
+	Teacher oliinuk = { "Olena", "Oliinuk", 49, "olenkaoliinyk@gmail.com", english };
+	Teacher rychka = { "Halyna", "Rychka", 49, "rychkahalka@gmail.com", math };
 
 	Teacher* teachersArr = new Teacher[sizeTeacher]{ stelmah, stepanenko, oliinuk, rychka, shevchenko, verhova, kovalchyk, avramenko };
 
 
-	//Subjects
-
-	int sizeSubject = 6;
-
-	history = { "History", "5-A 6-C", (stelmah.surname, verhova.surname) };
+	/*history = { "History", "5-A 6-C", (stelmah.surname, verhova.surname) };
 	pe = { "Pe", "5-A 5-B", shevchenko.surname };
 	math = { "Math", "5-A 11-A", stepanenko.surname };
 	english = { "English", "5-A 9-C", avramenko.surname };
 	ukrainian = { "Ukrainian", "5-A 1-B", verhova.surname };
 	art = { "Art", "5-A 7-A", oliinuk.surname };
 
-	Subject* subjectArr = new Subject[sizeSubject]{ history, pe, math, english, ukrainian, art };
+	//Subject* subjectArr = new Subject[sizeSubject]{ history, pe, math, english, ukrainian, art };
 
+		//for (int i = 0; i < sizeSubject; i++)
+	//	subjectArr[i] = new char[25];
 
+	//subjectArr[0] = new char[25];
 
 	//Subjects
 
-	/*int size = 5;
+	int size = 5;
 	char* subjects = new char[size];
-	subjects[1] = '4';*/
+	subjects[1] = '4';
 
-	//int size = 5;
-	//char** arr = new char* [size];
-	//for (int i = 0; i < size; i++)
-	//	arr[i] = new char[25]; 
 
-	//cout << arr[1];
-	/*char* m[12] ;
+
+
+	char* m[12] ;
 	*m ("ad";
-	arr[1] = m;
-	cout << arr[1];*/
+	subjectArr[1] = m;
+	cout << subjectArr[1];
 
-
+	*/
 
 	//Students
 
 	int sizeStudent = 13;
 
-	Student kravchenko = { "Kravchenko", "Ivan", "1-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
-	Student kramarchyk = { "Kramarchyk", "Vladislav", "2-A", "kramarchykvlad@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
-	Student zaharchyk = { "Zaharchyk", "Valerii", "3-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
-	Student pavlyk = { "Pavlyk", "Daryna", "4-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
-	Student melnychenko = { "Melnychenko", "Evgen", "5-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
-	Student shevchyk = { "Shevchyk", "Anna", "5-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
-	Student shunkarenko = { "Shunkarenko", "Bohdan", "6-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
-	Student vasylenko = { "Vasylenko", "Oleksandra", "7-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
-	Student brovarenko = { "Brovarenko", "Grigorii", "8-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
+	Student kravchenko = { "Kravchenko", "Ivan", "1-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416"};
+	Student kramarchyk = { "Kramarchyk", "Vladislav", "2-A", "kramarchykvlad@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416"};
+	Student zaharchyk = { "Zaharchyk", "Valerii", "3-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416"};
+	Student pavlyk = { "Pavlyk", "Daryna", "4-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416"};
+	Student melnychenko = { "Melnychenko", "Evgen", "5-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416"};
+	Student shevchyk = { "Shevchyk", "Anna", "5-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416"};
+	Student shunkarenko = { "Shunkarenko", "Bohdan", "6-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416"};
+	Student vasylenko = { "Vasylenko", "Oleksandra", "7-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416"};
+	Student brovarenko = { "Brovarenko", "Grigorii", "8-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416"};
 	Student bondarenko = { "Bondarenko", "Maksym", "9-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
 	Student mykytuk = { "Mykytuk", "Oleh", "9-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
 	Student romanchenko = { "Romanchenko", "Evhen", "10-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
 	Student sereda = { "Sereda", "Denys", "11-A", "ivankravchenko@gmail.com", "Mother: Natasha - 0989621546; Father: Valentin - 0987561257", "0698795416" };
 
-	Student* studentsArr = new Student[sizeStudent]{ kravchenko, kramarchyk, zaharchyk, pavlyk, shevchyk, melnychenko, shunkarenko, vasylenko,
-		brovarenko, bondarenko, mykytuk, romanchenko, sereda };
+	Student* studentsArr = new Student[sizeStudent];// { kravchenko, kramarchyk, zaharchyk, pavlyk, shevchyk, melnychenko, shunkarenko, vasylenko,
+		//brovarenko, bondarenko, mykytuk, romanchenko, sereda };
 
 	do
 	{
@@ -166,7 +169,7 @@ int main()
 				SortTeachers(teachersArr, sizeTeacher);
 				break;
 			case 5:
-				EditTeacher(teachersArr, sizeTeacher);
+				EditTeacher(teachersArr, sizeTeacher, sizeSubject, subjectArr);
 				break;
 			default:
 				cout << "You input invalid value, try again\n";
@@ -181,9 +184,13 @@ int main()
 			case 1:
 				ShowAllSubject(subjectArr, sizeSubject);
 				break;
-			case 2: 
+			case 2:
+				ShowCurrentSubject(subjectArr, sizeSubject, sizeTeacher, teachersArr, sizeStudent, studentsArr);
+				break;
+			case 3:
 				sizeSubject++;
-				subjectArr = AddSubject(subjectArr, sizeSubject, sizeTeacher, teachersArr);
+				subjectArr = AddSubject(subjectArr, sizeSubject, sizeTeacher, teachersArr, sizeStudent, studentsArr);
+				//AddSubject();
 				break;
 			}
 			break;

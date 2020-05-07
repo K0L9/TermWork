@@ -8,6 +8,7 @@ struct Student
 	char mail[35] = " ";
 	char perentsPhone[90] = " ";
 	char studentPhone[15] = " ";
+	char** subject;
 };
 
 

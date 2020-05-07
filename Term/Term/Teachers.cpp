@@ -2,6 +2,8 @@
 #include "Teachers.h"
 #include "Subject.h"
 
+#define lenght(lenght)lenght
+
 using namespace std;
 
 void ShowAllTeachers(Teacher teacher[], size_t size)
@@ -14,11 +16,12 @@ void ShowAllTeachers(Teacher teacher[], size_t size)
 		cout << teacher[i].name << "\t";
 		cout << teacher[i].age << "\t";
 		cout << teacher[i].mail << "\t";
-		cout << teacher[i].subject->name << "|\n";
+		cout << teacher[i].subject << "|\n";
+
 	}
 }
 
-Teacher* AddTeacher(Teacher arr[], int size, int sizeSubject, Subject arrSubject[])
+Teacher* AddTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[])
 {
 	Teacher teacher;
 
@@ -35,10 +38,12 @@ Teacher* AddTeacher(Teacher arr[], int size, int sizeSubject, Subject arrSubject
 	if (teacher.surname[0] >= 97 && teacher.surname[0] <= 122)
 		teacher.surname[0] = int(teacher.surname[0]) - 32;
 
-	do {
+	do
+	{
 		cout << "Input teacher age: \n";
-		//cin.ignore();
-		cin >> teacher.age;
+		scanf_s("%d", &teacher.age);
+		//cin >> teacher.age;
+		cin.ignore();
 		if (teacher.age <= 17 || teacher.age >= 75)
 			cout << "Error, input right age\n";
 	} while (teacher.age <= 17 || teacher.age >= 75);
@@ -51,12 +56,16 @@ Teacher* AddTeacher(Teacher arr[], int size, int sizeSubject, Subject arrSubject
 	do {
 		cout << "Input teacher's subject: \n";
 		char subject[20] = " ";
-		cin.ignore();
+		//cin.ignore();
 		cin.getline(subject, 20);
+
+		if (subject[0] >= 97 && subject[0] <= 122)
+			subject[0] = int(subject[0]) - 32;
+
 		int subjectIndex;
 		for (int i = 0; i < sizeSubject; i++)
 		{
-			if (strstr(arrSubject[i].name, subject) != 0)
+			if (strcmp(arrSubject[i], subject) == 0)
 			{
 				isFoundSubject = true;
 				subjectIndex = i;
@@ -66,10 +75,12 @@ Teacher* AddTeacher(Teacher arr[], int size, int sizeSubject, Subject arrSubject
 
 		if (isFoundSubject == true)
 		{
-			teacher.subject = &arrSubject[subjectIndex];
+			teacher.subject = arrSubject[subjectIndex];
 		}
+
 		else
 			cout << "Error, input right subject\n";
+
 	} while (isFoundSubject == false);
 
 	//cin.getline(teacher.subject->name, 25);
@@ -129,7 +140,7 @@ int TeachersSubMenu()
 	cout << "|2. Add new teacher   |\n";
 	cout << "|3. Remove teacher    |\n";
 	cout << "|4. Sort teachers     |\n";
-	cout << "|5. Rename teacher    |\n";
+	cout << "|5. Edit teacher      |\n";
 	cout << "=======================\n";
 	cin.ignore();
 	cin >> menuOption;
@@ -227,7 +238,7 @@ void SortTeachers(Teacher arr[], int size)
 	}
 }
 
-void EditTeacher(Teacher arr[], size_t size)
+void EditTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[])
 {
 	int indexToEdit;
 	do
@@ -279,6 +290,41 @@ void EditTeacher(Teacher arr[], size_t size)
 			strcpy_s(arr[indexToEdit].mail, 25, mail);
 			break;
 		case 5:
+		{
+			bool isFoundSubject = false;
+			do {
+				cout << "Input new teacher's subject: \n";
+				char subject[20] = " ";
+				cin.ignore();
+				cin.getline(subject, 20);
+
+				if (subject[0] >= 97 && subject[0] <= 122)
+					subject[0] = int(subject[0]) - 32;
+
+				int subjectIndex;
+				for (int i = 0; i < sizeSubject; i++)
+				{
+					if (strcmp(arrSubject[i], subject) == 0)
+					{
+						isFoundSubject = true;
+						subjectIndex = i;
+						break;
+					}
+				}
+
+				if (isFoundSubject == true)
+				{
+					arr[indexToEdit].subject = arrSubject[subjectIndex];
+				}
+
+				else
+					cout << "Error, input right subject\n";
+
+			} while (isFoundSubject == false);
+			break;
+		}
+
+		case 6:
 			cout << "Changes are succesfully added\n";
 			return;
 		default:
@@ -289,13 +335,14 @@ void EditTeacher(Teacher arr[], size_t size)
 
 int ShowEditMenu()
 {
-	cout << "=================\n";
-	cout << "|1. Edit name   |\n";
-	cout << "|2. Edit surname|\n";
-	cout << "|3. Edit age    |\n";
-	cout << "|4. Edit mail   |\n";
-	cout << "|5. Exit        |\n";
-	cout << "=================\n";
+	cout << "==================\n";
+	cout << "|1. Edit name    |\n";
+	cout << "|2. Edit surname |\n";
+	cout << "|3. Edit age     |\n";
+	cout << "|4. Edit mail    |\n";
+	cout << "|5. Edit subject |\n";
+	cout << "|6. Exit         |\n";
+	cout << "==================\n";
 	cout << "Input what you want to edit: ";
 	int option;
 	cin >> option;
