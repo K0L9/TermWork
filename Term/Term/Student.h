@@ -9,10 +9,11 @@ struct Student
 	char perentsPhone[90] = " ";
 	char studentPhone[15] = " ";
 	char** subject;
+	int sizeSubject = 20;
 };
 
 
-int StudentsSubMenu();
+void StudentsSubMenu(Student arr[], int* size);
 void ShowAllStudents(const Student const arr[], int size);
 void ShowStudentsForm(const Student const arr[], int size);
 Student* AddStudent(Student arr[], int size);
@@ -26,3 +27,4 @@ int ReturnFirstFormIndex(const Student const arr[], int size, const char const f
 void EditStudent(Student arr[], int size);
 int ShowEditStudentMenu();
 void GetNumber(char number[15]);
+void GetMailS(char arr[40]);

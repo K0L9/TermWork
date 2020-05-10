@@ -22,11 +22,11 @@
 //	char* subject;
 //};
 
-int SubjectsSubMenu();
+void SubjectsSubMenu(char* arr[], int* size);
 
 void ShowAllSubject(char* arr[], int size);
-void ShowCurrentSubject(char* arr[], int size, int sizeTeachers, Teacher teacherArr[], int sizeStudents, Student studentArr[]);
+//void ShowCurrentSubject(char* arr[], int size, int sizeTeachers, Teacher teacherArr[], int sizeStudents, Student studentArr[]);
 
-char** AddSubject(char* arr[], int size, int sizeTeacher, Teacher arrTeacher[], int sizeStudents, Student studentsArr[]);
-//char** DeleteSubject(char* arr[], int size, int sizeTeacher, Teacher arrTeacher[], int sizeStudents, Student studentsArr[]);
+char** AddSubject(char arr[], int size);// int sizeTeacher, Teacher arrTeacher[], int sizeStudents, Student studentsArr[]);
+//char** DeleteSubject(char* arr[], int* size, int sizeTeacher, Teacher arrTeacher[], int sizeStudents, Student studentsArr[]);
 //void AddSubject();

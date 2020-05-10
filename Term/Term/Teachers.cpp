@@ -2,37 +2,93 @@
 #include "Teachers.h"
 #include "Subject.h"
 
-#define lenght(lenght)lenght
-
 using namespace std;
 
-void ShowAllTeachers(Teacher teacher[], size_t size)
+void TeachersSubMenu(Teacher teachersArr[], int* size, int sizeSubject, char* arrSubject[])
 {
-	cout << "¹   Name  Surnmame\tAge\t\t Mail\n";
+	int menuOption;
+	do
+	{
+		system("cls");
+		cout << "\tTEACHERS\n";
+		cout << "=======================\n";
+		cout << "|1. Show all teachers |\n";
+		cout << "|2. Add new teacher   |\n";
+		cout << "|3. Remove teacher    |\n";
+		cout << "|4. Sort teachers     |\n";
+		cout << "|5. Edit teacher      |\n";
+		cout << "|6. Exit              |\n";
+		cout << "=======================\n";
+		cout << "Input option: ";
+		//cin.ignore();
+		cin >> menuOption;
+
+		switch (menuOption)
+		{
+		case 1:
+			system("cls");
+			ShowAllTeachers(teachersArr, *size);
+			system("pause");
+			break;
+		case 2:
+			system("cls");
+			*size = *size + 1;
+			teachersArr = AddTeacher(teachersArr, *size, sizeSubject, arrSubject);
+			//teachersArr = AddTeacher(teachersArr, sizeTeacher);
+			break;
+		case 3:
+			system("cls");
+			teachersArr = DeleteTeacher(teachersArr, size);
+			break;
+		case 4:
+			SortTeachers(teachersArr, *size);
+			break;
+		case 5:
+			EditTeacher(teachersArr, *size, sizeSubject, arrSubject);
+			break;
+		default:
+			cout << "You input invalid value, try again\n";
+			//	system("pause");
+			//	system("cls");
+		}
+	} while (menuOption != 6);
+
+}
+
+void ShowAllTeachers(Teacher teacher[], int size)
+{
+	if (teacher[0].name[0] < 65 || teacher[0].name[0] > 90 || teacher[0].surname[0] < 65 || teacher[0].surname[0] > 90)
+	{
+		cout << "You haven't any teacher\n";
+		return;
+	}
+
+	cout << "¹  Surname  Name\tAge\t  Mail\n";
 	cout << "------------------------------------------------\n";
 	for (int i = 0; i < size; i++)
 	{
 		cout << i + 1 << ". " << teacher[i].surname << "  ";
-		cout << teacher[i].name << "\t";
+		cout << teacher[i].name << "\t  ";
 		cout << teacher[i].age << "\t";
 		cout << teacher[i].mail << "\t";
-		cout << teacher[i].subject << "|\n";
-
+		if (teacher[i].subject != nullptr)// != nullptr)// > 65 || *teacher[i].subject < 90)
+			cout << teacher[i].subject << "|\n";
+		cout << endl;
 	}
+	
 }
 
 Teacher* AddTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[])
 {
 	Teacher teacher;
 
-	cout << "Input teacher name: \n";
+	cout << "Input teacher name: ";
 	cin.ignore();
 	cin.getline(teacher.name, 25);
 	if (teacher.name[0] >= 97 && teacher.name[0] <= 122)
 		teacher.name[0] = int(teacher.name[0]) - 32;
 
-
-	cout << "Input teacher surname: \n";
+	cout << "Input teacher surname: ";
 	//cin.ignore();
 	cin.getline(teacher.surname, 25);
 	if (teacher.surname[0] >= 97 && teacher.surname[0] <= 122)
@@ -40,7 +96,7 @@ Teacher* AddTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[]
 
 	do
 	{
-		cout << "Input teacher age: \n";
+		cout << "Input teacher age: ";
 		scanf_s("%d", &teacher.age);
 		//cin >> teacher.age;
 		cin.ignore();
@@ -48,47 +104,47 @@ Teacher* AddTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[]
 			cout << "Error, input right age\n";
 	} while (teacher.age <= 17 || teacher.age >= 75);
 
-	cout << "Input teacher mail: \n";
-	cin.ignore();
-	cin.getline(teacher.mail, 40);
+	GetMail(teacher.mail);
 
-	bool isFoundSubject = false;
-	do {
-		cout << "Input teacher's subject: \n";
-		char subject[20] = " ";
-		//cin.ignore();
-		cin.getline(subject, 20);
+	if (arrSubject[0])
+	{
+		teacher.subject = nullptr;
+		cout << "You haven't subject's, add subject and edit teacher soon\n";
+	}
+	else
+	{
 
-		if (subject[0] >= 97 && subject[0] <= 122)
-			subject[0] = int(subject[0]) - 32;
+		bool isFoundSubject = false;
+		do {
+			cout << "Input teacher's subject: ";
+			char subject[20] = " ";
+			//cin.ignore();
+			cin.getline(subject, 20);
 
-		int subjectIndex;
-		for (int i = 0; i < sizeSubject; i++)
-		{
-			if (strcmp(arrSubject[i], subject) == 0)
+			if (subject[0] >= 97 && subject[0] <= 122)
+				subject[0] = int(subject[0]) - 32;
+
+			int subjectIndex;
+			for (int i = 0; i < sizeSubject; i++)
 			{
-				isFoundSubject = true;
-				subjectIndex = i;
-				break;
+				if (strcmp(arrSubject[i], subject) == 0)
+				{
+					isFoundSubject = true;
+					subjectIndex = i;
+					break;
+				}
 			}
-		}
 
-		if (isFoundSubject == true)
-		{
-			teacher.subject = arrSubject[subjectIndex];
-		}
+			if (isFoundSubject == true)
+			{
+				*teacher.subject = arrSubject[subjectIndex];
+			}
 
-		else
-			cout << "Error, input right subject\n";
+			else
+				cout << "Error, input right subject\n";
 
-	} while (isFoundSubject == false);
-
-	//cin.getline(teacher.subject->name, 25);
-
-	//cout << "Input subject, that this teacher will be hold: \n";
-	//cin >> teacher.subject;
-
-	//arr = (Teacher*)realloc(arr, size);
+		} while (isFoundSubject == false);
+	}
 	Teacher* newArr = new Teacher[size];
 
 	for (int i = 0; i < size - 1; i++)
@@ -98,6 +154,10 @@ Teacher* AddTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[]
 	arr = nullptr;
 
 	newArr[size - 1] = teacher;
+
+	cout << "\nTeacher are succesfully added\n";
+	system("pause");
+
 	return newArr;
 
 }
@@ -121,6 +181,8 @@ Teacher* DeleteTeacher(Teacher arr[], int* size)
 		}
 		delete[] arr;
 		arr = nullptr;
+		cout << "\nTeacher are succesfully removed\n";
+		system("pause");
 		return newArr;
 	}
 	else
@@ -131,86 +193,13 @@ Teacher* DeleteTeacher(Teacher arr[], int* size)
 
 }
 
-int TeachersSubMenu()
-{
-	int menuOption;
-	cout << "\tTEACHERS\n";
-	cout << "=======================\n";
-	cout << "|1. Show all teachers |\n";
-	cout << "|2. Add new teacher   |\n";
-	cout << "|3. Remove teacher    |\n";
-	cout << "|4. Sort teachers     |\n";
-	cout << "|5. Edit teacher      |\n";
-	cout << "=======================\n";
-	cin.ignore();
-	cin >> menuOption;
-	return menuOption;
-}
-
-
 void SortTeachers(Teacher arr[], int size)
 {
-	//for (int i = 0; i < size; i++)
-	//{
-	//	for (int j = size - 1; j > i; j--)
-	//	{
-	//		if (arr[i].name[j - 1] > arr[i+1].name[j])
-	//		{
-	//			swap(arr[i], arr[j]);
-	//			//T temp = arr[j - 1];
-	//			//arr[j - 1] = arr[j];
-	//			//arr[j] = temp;
-	//		}
-	//	}
-	//}
-
-	/*for (int i = 0; i < size; i++)
+	if (arr[0].name[0] < 65 || arr[0].name[0] > 90 || arr[0].surname[0] < 65 || arr[0].surname[0] > 90)
 	{
-		if (strstr(arr[i].surname, arr[i+1].surname) != 0)
-		{
-			for (int i = 0; i < size; i++)
-			{
-				for (int j = size - 1; j > i; j--)
-				{
-					if (arr->surname[j - 1] < arr->surname[j])
-					{
-						swap(arr[i], arr[j]);
-					}
-				}
-			}
-		}
-	}*/
-
-	//for (size_t i = 0; i < size - 1; i++)
-	//{
-	//	//Teacher temp = arr[i];
-	//	for (size_t j = i + 1; j < size; j++)
-	//	{
-	//		for (int k = 0; k < strlen(arr[i].surname) || k < strlen(arr[j].surname); )
-	//		{
-	//			if (arr[i].surname[0] > arr[j].surname[0])
-	//			{
-	//				swap(arr[i], arr[j]);
-	//				break;
-	//			}
-
-	//			else if (arr[i].surname[k] == arr[j].surname[k])
-	//			{
-	//				k++;
-	//				if (arr[i].surname[k] > arr[j].surname[k])
-	//				{
-	//					swap(arr[i], arr[j]);
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
-
-	/*for (int i = 0; i < size; i++)
-	{
-		if (strcmp(arr[i].surname, arr[i + 1].surname) < 0)
-			swap(arr[i], arr[i + 1]);
-	}*/
+		cout << "You haven't any teacher!\n";
+		return;
+	}
 
 	for (int i = 0; i < size - 1; i++)
 	{
@@ -221,7 +210,6 @@ void SortTeachers(Teacher arr[], int size)
 			{
 				swap(arr[i], arr[j]);
 			}
-
 		}
 	}
 
@@ -236,11 +224,14 @@ void SortTeachers(Teacher arr[], int size)
 
 		}
 	}
+
+	cout << "\nTeacher are succesfully sorted\n";
+	system("pause");
 }
 
 void EditTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[])
 {
-	int indexToEdit;
+	int indexToEdit = -1;
 	do
 	{
 		indexToEdit = FoundTeacher(arr, size);
@@ -253,27 +244,31 @@ void EditTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[])
 	int option = 0;
 	do
 	{
+		system("cls");
 		option = ShowEditMenu();
 
 		switch (option)
 		{
 		case 1:
+			system("cls");
 			char name[25];
-			cout << "Input new teacher name\n";
+			cout << "Input new teacher name: ";
 			cin >> name;
 			strcpy_s(arr[indexToEdit].name, 25, name);
 			break;
 		case 2:
+			system("cls");
 			char surname[25];
-			cout << "Input new teacher surname\n";
+			cout << "Input new teacher surname: ";
 			cin >> surname;
 			strcpy_s(arr[indexToEdit].surname, 25, surname);
 			break;
 		case 3:
+			system("cls");
 			int age;
 
 			do {
-				cout << "Input new teacher's age: \n";
+				cout << "Input new teacher's age: ";
 				cin >> age;
 				if (age <= 17 || age >= 75)
 					cout << "Error, input right age\n";
@@ -284,50 +279,64 @@ void EditTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[])
 			break;
 
 		case 4:
+			system("cls");
 			char mail[25];
-			cout << "Input new teacher mail\n";
-			cin >> mail;
+			cin.ignore();
+			GetMail(mail);
 			strcpy_s(arr[indexToEdit].mail, 25, mail);
 			break;
 		case 5:
 		{
-			bool isFoundSubject = false;
-			do {
-				cout << "Input new teacher's subject: \n";
-				char subject[20] = " ";
-				cin.ignore();
-				cin.getline(subject, 20);
+			system("cls");
+			if (arrSubject[0])
+			{
+				cout << "You haven't subject's, add subject and edit teacher soon\n ";
+			}
+			else
+			{
+				bool isFoundSubject = false;
+				do {
+					cout << "Input new teacher's subject: \n";
+					char subject[20] = " ";
+					cin.ignore();
+					cin.getline(subject, 20);
 
-				if (subject[0] >= 97 && subject[0] <= 122)
-					subject[0] = int(subject[0]) - 32;
+					if (subject[0] >= 97 && subject[0] <= 122)
+						subject[0] = int(subject[0]) - 32;
 
-				int subjectIndex;
-				for (int i = 0; i < sizeSubject; i++)
-				{
-					if (strcmp(arrSubject[i], subject) == 0)
+					int subjectIndex;
+					for (int i = 0; i < sizeSubject; i++)
 					{
-						isFoundSubject = true;
-						subjectIndex = i;
-						break;
+						if (strcmp(arrSubject[i], subject) == 0)
+						{
+							isFoundSubject = true;
+							subjectIndex = i;
+							break;
+						}
 					}
-				}
 
-				if (isFoundSubject == true)
-				{
-					arr[indexToEdit].subject = arrSubject[subjectIndex];
-				}
+					if (isFoundSubject == true)
+					{
+						*arr[indexToEdit].subject = arrSubject[subjectIndex];
+					}
 
-				else
-					cout << "Error, input right subject\n";
+					else
+						cout << "Error, input right subject\n";
 
-			} while (isFoundSubject == false);
+				} while (isFoundSubject == false);
+				break;
+			}
 			break;
 		}
 
 		case 6:
+			system("cls");
 			cout << "Changes are succesfully added\n";
+			system("pause");
+			system("cls");
 			return;
 		default:
+			system("cls");
 			cout << "Input right number please\n";
 		}
 	} while (option != 5);
@@ -335,6 +344,7 @@ void EditTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[])
 
 int ShowEditMenu()
 {
+	cout << " Editing teacher\n";
 	cout << "==================\n";
 	cout << "|1. Edit name    |\n";
 	cout << "|2. Edit surname |\n";
@@ -349,29 +359,64 @@ int ShowEditMenu()
 	return option;
 }
 
+void GetMail(char arr[40])
+{
+	bool isMail = false;
+	do
+	{
+		cout << "Input teacher mail: ";
+		cin.getline(arr, 40);
+
+		for (int i = 0; i < strlen(arr) || i < 40 || arr[i] == '\0'; i++)
+			if (arr[i] == '@')
+			{
+				isMail = true;
+				break;
+			}
+
+		if (isMail == false)
+			cout << "Input right mail!!\n";
+
+	} while (isMail == false);
+}
+
 int FoundTeacher(Teacher arr[], int size)
 {
 	Teacher teacher;
 
-	cout << "Input teacher name: \n";
-	cin >> teacher.name;
-	cout << "Input teacher surname: \n";
-	cin >> teacher.surname;
-
-
-	int IndexToEdit = -1;
-
-	for (int i = 0; i < size; i++)
+	if (arr[0].name[0] < 65 || arr[0].name[0] > 90 || arr[0].surname[0] < 65 || arr[0].surname[0] > 90)
 	{
-		if (strstr(teacher.name, arr[i].name) != nullptr)
+		system("cls");
+		cout << "You haven't any teacher!\n";
+	}
+	else
+	{
+		system("cls");
+		cout << "Input teacher name: ";
+		cin >> teacher.name;
+		if (teacher.name[0] >= 97 && teacher.name[0] <= 122)
+			teacher.name[0] = int(teacher.name[0]) - 32;
+		cout << "Input teacher surname: ";
+		cin >> teacher.surname;
+		if (teacher.surname[0] >= 97 && teacher.surname[0] <= 122)
+			teacher.surname[0] = int(teacher.surname[0]) - 32;
+
+
+		int IndexToEdit = -1;
+
+		for (int i = 0; i < size; i++)
 		{
-			if (strstr(teacher.surname, arr[i].surname) != nullptr)
+			if (strcmp(teacher.name, arr[i].name) == 0)
 			{
-				IndexToEdit = i;
-				break;
+				if (strcmp(teacher.surname, arr[i].surname) == 0)
+				{
+					IndexToEdit = i;
+					break;
+				}
 			}
 		}
+
+		return IndexToEdit;
 	}
 
-	return IndexToEdit;
 }

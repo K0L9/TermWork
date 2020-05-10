@@ -7,25 +7,70 @@
 
 using namespace std;
 
-int StudentsSubMenu()
+void StudentsSubMenu(Student arr[], int* size)
 {
-	cout << "=================================\n";
-	cout << "|1. Show all students            |\n";
-	cout << "|2. Show students in current form|\n";
-	cout << "|3. Add new student              |\n";
-	cout << "|4. Delete student               |\n";
-	cout << "|5. Sort students in current form|\n";
-	cout << "|6. Edit current student         |\n";
-	cout << "|7. Exit                         |\n";
-	cout << "=================================\n";
 	int menuOption;
-	cout << "Input option: ";
-	cin >> menuOption;
-	return menuOption;
+	do
+	{
+		system("cls");
+		cout << "          Students\n";
+		cout << "==================================\n";
+		cout << "|1. Show all students            |\n";
+		cout << "|2. Show students in current form|\n";
+		cout << "|3. Add new student              |\n";
+		cout << "|4. Delete student               |\n";
+		cout << "|5. Sort students in current form|\n";
+		cout << "|6. Edit current student         |\n";
+		cout << "|7. Exit                         |\n";
+		cout << "==================================\n";
+		cout << "Input option: ";
+		cin >> menuOption;
+		switch (menuOption)
+		{
+		case 1:
+			system("cls");
+			ShowAllStudents(arr, *size);
+			system("pause");
+			break;
+		case 2:
+			system("cls");
+			ShowStudentsForm(arr, *size);
+			system("pause");
+			break;
+		case 3:
+			system("cls");
+			*size = *size + 1;
+			arr = AddStudent(arr, *size);
+			break;
+		case 4:
+			system("cls");
+			arr = DeleteStudent(arr, size);
+			system("cls");
+			break;
+		case 5:
+			system("cls");
+			SortStudents(arr, *size);
+			system("cls");
+			break;
+		case 6:
+			EditStudent(arr, *size);
+			break;
+		case 7:
+			return;
+		default:
+			cout << "Error, input right option\n";
+		}
+	} while (menuOption != 7);
 }
 
 void ShowAllStudents(const Student const arr[], int size)
 {
+	if (size == 0)
+	{
+		cout << "There aren't students in your school\n";
+		return;
+	}
+
 	cout << "Total: " << size << endl;
 	for (int i = 0; i < size; i++)
 	{
@@ -63,28 +108,27 @@ Student* AddStudent(Student arr[], int size)
 {
 	Student student;
 
-	cout << "Input student name: \n";
+	cout << "Input student name: ";
 	cin.ignore();
 	cin.getline(student.name, 25);
 	if (student.name[0] >= 97 && student.name[0] <= 122)
 		student.name[0] = int(student.name[0]) - 32;
 
 
-	cout << "Input student surname: \n";
+	cout << "Input student surname: ";
 	cin.getline(student.surname, 25);
 	if (student.surname[0] >= 97 && student.surname[0] <= 122)
 		student.surname[0] = int(student.surname[0]) - 32;
 
 	GetForm(student.form);
 
-	cout << "Input student mail: \n";
-	cin.ignore();
-	cin.getline(student.mail, 35);
+	GetMailS(student.mail);
 
+	cout << "Input student parents phone: ";
 	do
 	{
-		cout << "Input student parents phone: \n";
-		cout << "Input h to show example: \n";
+		cout << "\nInput h to show example: ";
+		cin.ignore();
 		cin.getline(student.perentsPhone, 90);
 		if (strcmp(student.perentsPhone, "h") == 0)
 			cout << "Mother: Name - +380*********; Father: Name - +380*********\n";
@@ -102,6 +146,9 @@ Student* AddStudent(Student arr[], int size)
 
 	delete[] arr;
 	arr = nullptr;
+
+	cout << "Student are succesfully added\n";
+	system("pause");
 
 	newArr[size - 1] = student;
 	return newArr;
@@ -127,6 +174,9 @@ Student* DeleteStudent(Student arr[], int* size)
 		}
 		delete[] arr;
 		arr = nullptr;
+
+		cout << "\nStudent are succesfully deleted\n";
+		system("pause");
 		return newArr;
 	}
 	else
@@ -139,6 +189,12 @@ Student* DeleteStudent(Student arr[], int* size)
 
 int FoundStudent(const Student const arr[], int size)
 {
+	if (arr[0].name[0] < 65 || arr[0].name[0] > 90 || arr[0].surname[0] < 65 || arr[0].surname[0] > 90)
+	{
+		cout << "You haven't any student!\n";
+		return -2;
+	}
+
 	Student student;
 
 	char form[5];
@@ -231,6 +287,9 @@ void SortStudents(Student arr[], int size)
 		}
 	}
 
+	cout << "Teachers are succesfully sorted\n";
+	system("pause");
+
 }
 
 void GetForm(char form[5])
@@ -239,11 +298,10 @@ void GetForm(char form[5])
 	{
 		cout << "Input form: ";
 		cin >> form;
-		if (strstr(FORMS, form) == nullptr)
+		if (strstr(FORMS, form) == nullptr || strlen(form) == 1)
 			cout << "Input right form\n";
 
-	} while (strstr(FORMS, form) == nullptr);
-	ConvertForm(form);
+	} while (strstr(FORMS, form) == nullptr || strlen(form) == 1);
 }
 
 void ConvertForm(char form[5])
@@ -265,7 +323,6 @@ void ConvertForm(char form[5])
 			letter = i;
 			break;
 		}
-
 	}
 
 	if (isFound == false)
@@ -281,14 +338,18 @@ void ConvertForm(char form[5])
 
 void EditStudent(Student arr[], int size)
 {
+
+
 	int indexToEdit;
 	do
 	{
 		indexToEdit = FoundStudent(arr, size);
 		if (indexToEdit == -1)
-		{
 			cout << "Student not indefined, try again\n";
-		}
+
+		else if (indexToEdit == -2)
+			return;
+
 	} while (indexToEdit == -1);
 
 	int option = 0;
@@ -299,38 +360,44 @@ void EditStudent(Student arr[], int size)
 		switch (option)
 		{
 		case 1:
+			system("cls");
 			char name[25];
-			cout << "Input new student's name\n";
+			cout << "Input new student's name: ";
 			cin >> name;
 			strcpy_s(arr[indexToEdit].name, 25, name);
 			break;
 		case 2:
+			system("cls");
 			char surname[25];
-			cout << "Input new student's surname\n";
+			cout << "Input new student's surname: ";
 			cin >> surname;
 			strcpy_s(arr[indexToEdit].surname, 25, surname);
 			break;
 		case 3:
+			system("cls");
 			GetForm(arr[indexToEdit].form);
 			break;
 
 		case 4:
+			system("cls");
 			char mail[25];
-			cout << "Input new student's mail\n";
-			cin >> mail;
+			GetMailS(mail);
 			strcpy_s(arr[indexToEdit].mail, 25, mail);
 			break;
 		case 5:
+			system("cls");
 			char studentPhone[15];
-			cout << "Input new student's number\n";
+			GetNumber(studentPhone);
+			/*cout << "Input new student's number\n";
 			cin >> studentPhone;
-			strcpy_s(arr[indexToEdit].studentPhone, 15, studentPhone);
+			strcpy_s(arr[indexToEdit].studentPhone, 15, studentPhone);*/
 			break;
 		case 6:
+			system("cls");
 			char parentsPhone[90];
 			do
 			{
-				cout << "Input student parents phone: \n";
+				cout << "\nInput student parents phone: \n";
 				cout << "Input h to show example: \n";
 				cin.ignore();
 				cin.getline(parentsPhone, 90);
@@ -341,9 +408,13 @@ void EditStudent(Student arr[], int size)
 			strcpy_s(arr[indexToEdit].perentsPhone, 90, parentsPhone);
 
 			break;
+
 		case 7:
+			system("cls");
 			cout << "Changes are succesfully added\n";
+			system("pause");
 			return;
+
 		default:
 			cout << "Input right number please\n";
 		}
@@ -352,7 +423,9 @@ void EditStudent(Student arr[], int size)
 
 int ShowEditStudentMenu()
 {
-	cout << "===========================\n";
+	system("cls");
+	cout << "      Edit Student\n";
+	cout << "=========================\n";
 	cout << "|1. Edit name           |\n";
 	cout << "|2. Edit surname        |\n";
 	cout << "|3. Edit form           |\n";
@@ -360,7 +433,7 @@ int ShowEditStudentMenu()
 	cout << "|5. Edit student number |\n";
 	cout << "|6. Edit parents number |\n";
 	cout << "|7. Exit                |\n";
-	cout << "===========================\n";
+	cout << "=========================\n";
 	cout << "Input what you want to edit: ";
 	int option;
 	cin >> option;
@@ -376,10 +449,16 @@ void GetNumber(char number[15])
 			break;
 		do
 		{
-			cout << "Input student's phone: ";
+
 			if (isFirst == false)
 			{
+				cout << "Input student's phone: ";
+				cin.ignore();
 				cin.getline(number, 15);
+
+				//for (int j = 0; j < 15; j++)
+				//	if (!isdigit(number[j]) && number[j] != 43)
+				//		break;
 				isFirst = true;
 			}
 			if (!isdigit(number[i]) && number[i] != 43)
@@ -390,5 +469,27 @@ void GetNumber(char number[15])
 		} while (!isdigit(number[i]) && number[i] != 43);
 	}
 
+	cout << endl;
+}
 
+void GetMailS(char arr[40])
+{
+	bool isMail = false;
+	do
+	{
+		cout << "Input student mail: ";
+		cin.ignore();
+		cin >> arr;
+
+		for (int i = 0; i < strlen(arr) || i < 40 || arr[i] == '\0'; i++)
+			if (arr[i] == '@')
+			{
+				isMail = true;
+				break;
+			}
+
+		if (isMail == false)
+			cout << "Input right mail!!\n";
+
+	} while (isMail == false);
 }
