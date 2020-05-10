@@ -142,7 +142,6 @@
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Teachers.cpp" />
-    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Student.h" />

@@ -8,15 +8,13 @@ struct Student
 	char mail[35] = " ";
 	char perentsPhone[90] = " ";
 	char studentPhone[15] = " ";
-	char** subject;
-	int sizeSubject = 20;
 };
 
 
 void StudentsSubMenu(Student arr[], int* size);
 void ShowAllStudents(const Student const arr[], int size);
 void ShowStudentsForm(const Student const arr[], int size);
-Student* AddStudent(Student arr[], int size);
+Student* AddStudent(Student arr[], int* size);
 Student* DeleteStudent(Student arr[], int* size);
 int FoundStudent(const Student const arr[], int size);
 void SortStudents(Student arr[], int size);

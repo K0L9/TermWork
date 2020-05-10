@@ -39,8 +39,7 @@ void StudentsSubMenu(Student arr[], int* size)
 			break;
 		case 3:
 			system("cls");
-			*size = *size + 1;
-			arr = AddStudent(arr, *size);
+			arr = AddStudent(arr, size);
 			break;
 		case 4:
 			system("cls");
@@ -104,9 +103,10 @@ void ShowStudentsForm(const Student const arr[], int size)
 	}
 }
 
-Student* AddStudent(Student arr[], int size)
+Student* AddStudent(Student arr[], int* size)
 {
 	Student student;
+	*size = *size + 1;
 
 	cout << "Input student name: ";
 	cin.ignore();
@@ -135,13 +135,10 @@ Student* AddStudent(Student arr[], int size)
 	} while (strlen(student.perentsPhone) == 1);
 
 	GetNumber(student.studentPhone);
-	//cout << "Input student phone: \n";
-	//cin.getline(student.studentPhone, 15);
 
-	//arr = (student*)realloc(arr, size);
-	Student* newArr = new Student[size];
+	Student* newArr = new Student[*size];
 
-	for (int i = 0; i < size - 1; i++)
+	for (int i = 0; i < *size - 1; i++)
 		newArr[i] = arr[i];
 
 	delete[] arr;
@@ -150,7 +147,7 @@ Student* AddStudent(Student arr[], int size)
 	cout << "Student are succesfully added\n";
 	system("pause");
 
-	newArr[size - 1] = student;
+	newArr[*size - 1] = student;
 	return newArr;
 
 }
@@ -332,8 +329,6 @@ void ConvertForm(char form[5])
 		form[letter] = '-';
 		ConvertForm(form);
 	}
-	//Student temp;
-	//return form;
 }
 
 void EditStudent(Student arr[], int size)
@@ -388,9 +383,6 @@ void EditStudent(Student arr[], int size)
 			system("cls");
 			char studentPhone[15];
 			GetNumber(studentPhone);
-			/*cout << "Input new student's number\n";
-			cin >> studentPhone;
-			strcpy_s(arr[indexToEdit].studentPhone, 15, studentPhone);*/
 			break;
 		case 6:
 			system("cls");
@@ -456,9 +448,6 @@ void GetNumber(char number[15])
 				cin.ignore();
 				cin.getline(number, 15);
 
-				//for (int j = 0; j < 15; j++)
-				//	if (!isdigit(number[j]) && number[j] != 43)
-				//		break;
 				isFirst = true;
 			}
 			if (!isdigit(number[i]) && number[i] != 43)

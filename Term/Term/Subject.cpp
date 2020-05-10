@@ -1,12 +1,5 @@
 #include <iostream>
 #include "Subject.h"
-#include "Teachers.h"
-
-#define FORMS "1-A 2-A 3-A 4-A 5-A 6-A 7-A 8-A 9-A 10-A 11-A 1-B 2-B 3-B 4-B 5-B 6-B 7-B 8-B 9-B 10-B 11-B 1-C 2-C 3-C 4-C 5-C 6-C 7-C 8-C 9-C 10-C 11-C\
-1A 2A 3A 4A 5A 6A 7A 8A 9A 10A 11A 1B 2B 3B 4B 5B 6B 7B 8B 9B 10B 11B 1C 2C 3C 4C 5C 6C 7C 8C 9C 10C 11C\
-1-a 2 3-a 4-a 5-a 6-a 7-a 8-a 9-a 10-a 11-a 1-b 2-b 3-b 4-b 5-b 6-b 7-b 8-b 9-b 10-b 11-b 1-c 2-c 3-c 4-c 5-c 6-c 7-c 8-c 9-c 10-c 11-c 1a 2a 3a 4a 5a 6a 7a 8a 9a 10a 11a\
-1b 2b 3b 4b 5b 6b 7b 8b 9b 10b 11b 1c 2c 3c 4c 5c 6c 7c 8c 9c 10c 11c e"
-
 using namespace std;
 
 void SubjectsSubMenu(char* arr[], int* size)
@@ -26,14 +19,47 @@ void SubjectsSubMenu(char* arr[], int* size)
 		cout << "|6. Edit subjects         |\n";
 		cout << "|7. Exit                  |\n";
 		cout << "===========================\n";
+		cout << "Input option: ";
 		cin >> menuOption;
 
 		switch (menuOption)
 		{
 		case 1:
+			system("cls");
 			ShowAllSubject(arr, *size);
 			break;
-		case 7: 
+
+		case 2:
+			system("cls");
+			cout << "Will be soon\n";
+			system("pause");
+			break;
+
+		case 3:
+			system("cls");
+			*arr = AddSubject(*arr, size);
+			break;
+
+		case 4:
+			system("cls");
+			DeleteSubject(*arr, size);
+			system("pause");
+			system("cls");
+			break;
+
+		case 5:
+			system("cls");
+			cout << "Will be soon\n";
+			system("pause");
+			break;
+
+		case 6:
+			system("cls");
+			cout << "Will be soon\n";
+			system("pause");
+			break;
+
+		case 7:
 			return;
 		}
 	} while (menuOption != 7);
@@ -41,287 +67,61 @@ void SubjectsSubMenu(char* arr[], int* size)
 
 void ShowAllSubject(char* arr[], int size)
 {
-	if (*arr[0] < 65 || *arr[0] > 90 || *arr[0] < 65 || *arr[0] > 90)
+	if (size == 0)
 	{
 		cout << "You haven't any subject!\n";
+		system("pause");
 		return;
 	}
 
 	for (int i = 0; i < size; i++)
 	{
-		cout << arr[i] << "  ";
+		cout << i + 1 << ". " << arr[i] << endl;
 	}
 	system("pause");
 	system("cls");
 }
 
-void ShowCurrentSubject(char* arr[], int size, int sizeTeachers, Teacher teacherArr[], int sizeStudents, Student studentArr[])
+char* AddSubject(char arr[], int* size)
 {
-	char subject[25];
-	cout << "Input subject that you want to see\n";
-	cin.ignore();
-	cin.getline(subject, 25);
-
-	int lastIndex;
-	char isShow[300] = " ";
-
-	for (int i = 0; i < sizeStudents; i++)
+	if (*size >= 1)
 	{
-		for (int j = 0; j < 20; j++)
-		{
-			if (studentArr[i].subject[j] == NULL)
-			{
-				lastIndex = j;
-				break;
-			}
-		}
-
-		for (int j = 0; j < lastIndex; j++)
-		{
-			if (strcmp(studentArr[i].subject[j], subject) == 0)
-			{
-				if (strstr(isShow, studentArr[i].form) == nullptr)
-				{
-					cout << studentArr[i].form << " ";
-					strcat_s(isShow, 300, studentArr[i].form);
-					break;
-				}
-			}
-		}
-
+		cout << "You can add one more subjects soon\n";
+		system("pause");
+		return arr;
 	}
-	cout << endl;
 
-	/*for (int i = 0; i < size; i++)
-	{
-		cout << arr[i] << "\n  Teachers: ";
-		for (int j = 0; j < sizeTeachers; j++)
-		{
-			if (strcmp(teacherArr[j].subject, arr[i]) == 0)
-				cout << teacherArr[j].surname << " ";
-		}
-		cout << "\n";
+	*size = *size + 1;
 
-		int lastIndex;
-
-		for (int j = 0; j < 20; j++)
-		{
-			if (studentArr[j].subject[i] != NULL)
-			{
-				lastIndex = j;
-				break;
-			}
-		}
-
-		cout << "\tForms: ";
-		for (int j = 0; j <= lastIndex; j++)
-		{
-			if (strcmp(studentArr[i].subject[j], arr[i]) == 0)
-				cout << studentArr[j].form << " ";
-		}
-
-		cout << "\n\n";
-	}*/
-}
-
-char** AddSubject(char arr[], int size)//, int sizeTeacher, Teacher arrTeacher[], int sizeStudents, Student studentsArr[])
-{
 	char subject[25];
 
-	//Add new subject
 	cout << "Input name of new subject: ";
 	cin.ignore();
 	cin.getline(subject, 25);
+
 	if (subject[0] >= 97 && subject[0] <= 122)
 		subject[0] = int(subject[0]) - 32;
 
-	/*//Add new form
-	if (studentsArr[0].name[0] < 65 || studentsArr[0].name[0] > 90 || studentsArr[0].name[0] < 65 || studentsArr[0].name[0] > 90)
-		cout << "You haven't any forms\n";
-	else
-	{
-		char form[5];
-		do
-		{
-			cout << "Input e to exit and countinue add subject\n";
+	char* newArr = new char[25];
 
-			bool isE = false;
-
-			do
-			{
-				cout << "Input form: ";
-				cin >> form;
-
-				if (form[0] == 'e')
-				{
-					isE = true;
-					break;
-				}
-
-				if (strstr(FORMS, form) == nullptr)
-					cout << "Input right form\n";
-
-			} while (strstr(FORMS, form) == nullptr);
-
-			//Add form to subject
-			if (isE == false)
-			{
-				ConvertForm(form);
-
-				int indexToPaste;
-
-				for (int i = 0; i < sizeStudents; i++)
-				{
-					for (int j = 0; j < studentsArr[i].sizeSubject; j++)
-					{
-						if (studentsArr[i].subject[j])
-						{
-							indexToPaste = j;
-							break;
-						}
-					}
-					if (strcmp(form, studentsArr[i].form) == 0)
-						//strcpy_s(studentsArr[i].subject[indexToPaste], 25, subject);
-						studentsArr[i].subject[indexToPaste] = subject;
-				}
-			}
-
-		} while (form[0] != 'e');
-	}
-
-	// Add new Teacher
-	if (arrTeacher[0].name[0] < 65 || arrTeacher[0].name[0] > 90 || arrTeacher[0].name[0] < 65 || arrTeacher[0].name[0] > 90)
-		cout << "You haven't any teachers\n";
-	else
-	{
-		bool isFoundTeacher = false;
-		do
-		{
-
-			Teacher teacher;
-			do
-			{
-
-				cout << "Input e to exit and finish add subject: \n";
-
-				cout << "Input teacher name: \n";
-				cin >> teacher.name;
-
-				if (teacher.name[0] == 'e')
-					break;
-
-				cout << "Input teacher surname: \n";
-				cin >> teacher.surname;
-
-				if (teacher.surname[0] == 'e')
-					break;
-
-				int IndexToEdit = -1;
-
-
-
-				for (int i = 0; i < size; i++)
-				{
-					if (strstr(teacher.name, arrTeacher[i].name) != nullptr)
-					{
-						if (strstr(teacher.surname, arrTeacher[i].surname) != nullptr)
-						{
-							IndexToEdit = i;
-							break;
-						}
-					}
-				}
-
-				if (IndexToEdit != -1)
-					isFoundTeacher = true;
-				else
-					cout << "Teacher isn't indefined\n";
-
-				//for (int i = 0; i < sizeTeacher; i++)
-				//{
-				//	if (strstr(arrTeacher[i].surname, teacher) != 0)
-				//	{
-				//		isFoundSubject = true;
-				//		teacherIndex = i;
-				//		break;
-				//	}
-				//}
-
-				if (isFoundTeacher == true)
-				{
-					//arrTeacher[IndexToEdit].subject = nullptr;
-					//strcpy_s(*arrTeacher[IndexToEdit].subject, 25, subject);
-					//*arrTeacher[IndexToEdit].subject = subject;
-				}
-
-			} while (teacher.name[0] != 'e' || teacher.surname[0] != 'e');
-
-		} while (isFoundTeacher == false);
-	}*/
-
-	//Create array
-	//arr = (char**)realloc(arr, size);
-
-	char** newArr = new char* [size];
-
-	//char** newArr = new char* [size];// = nullptr;
-	//strcpy_s(*newArr, 25, subject);
-
-	//for (int i = 0; i < size - 1; i++)
-		//newArr[i] = arr[i];
-
-	//strcpy_s(newArr[size - 1], 25, subject);
-	newArr[0] = subject;
-	//strcpy_s(*newArr, 25, subject);
-
-	//arr[0] = subject;
-
-	//strcpy_s(arr[size - 1], 25, subject);
-	//newArr[size - 1] = new char;
-	//newArr[size - 1] = subject;
-
-	//delete[] arr;
-	//arr = nullptr;
+	strcpy_s(newArr, 25, subject);
 
 	return newArr;
-
 }
 
-char** DeleteSubject(char* arr[], int* size, int sizeTeacher, Teacher arrTeacher[], int sizeStudents, Student studentsArr[])
+void DeleteSubject(char arr[], int* size)
 {
-	char subjectToDelete[25];
-	cout << "Input subject that you want to remove: ";
-	cin.getline(subjectToDelete, 25);
-	int IndexToDelete = -1;
-	for (int i = 0; i < *size; i++)
+	if (*size == 0)
 	{
-		if (strcmp(arr[i], subjectToDelete) == 0)
-		{
-			IndexToDelete = i;
-			break;
-		}
+		cout << "You haven't subject\n";
+		system("pause");
+		return;
 	}
 
-	if (IndexToDelete != -1)
-	{
-		*size = *size - 1;
-		char** newArr = new char* [*size];
+	*size = *size - 1;
 
-		for (int i = 0; i < *size + 1; i++)
-		{
-			if (i < IndexToDelete)
-				newArr[i] = arr[i];
+	arr = nullptr;
 
-			else if (i > IndexToDelete)
-				newArr[i - 1] = arr[i];
-		}
-		delete[] arr;
-		arr = nullptr;
-		return newArr;
-	}
-	else
-	{
-		cout << "Subject not indefined\n";
-		return arr;
-	}
+	cout << "Subject are succesfully deleted\n";
 }
+

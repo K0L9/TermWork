@@ -6,21 +6,17 @@ struct Teacher
 	char surname[25] = " ";
 	int age;
 	char mail[40] = " ";
-	char** subject;
-	size_t sizeSubject;
 };
 
-//void ShowAllTeachers(Teacher teacher[], int size);
+void TeachersSubMenu(Teacher arr[], int* size);
+void ShowAllTeachers(const Teacher const teacher[], int size);
 
-void TeachersSubMenu(Teacher arr[], int* size, int sizeSubject, char* arrSubject[]);
-void ShowAllTeachers(Teacher teacher[], int size);
-
-Teacher* AddTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[]);
+Teacher* AddTeacher(Teacher arr[], int* size);
 Teacher* DeleteTeacher(Teacher arr[], int* size);
 void SortTeachers(Teacher arr[], int size);
-void EditTeacher(Teacher arr[], int size, int sizeSubject, char* arrSubject[]);
+void EditTeacher(Teacher arr[], int size);
 
-int FoundTeacher(Teacher arr[], int size);
+int FoundTeacher(const Teacher const arr[], int size);
 
 int ShowEditMenu();
 
